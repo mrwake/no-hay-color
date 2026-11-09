@@ -29,13 +29,13 @@ Las entrevistas y los retratos ficticios incluidos son demostraciones; cada entr
 
 ## Publicar gratis con GitHub Pages
 
-El flujo `.github/workflows/deploy-pages.yml` compila Astro y publica `dist/` en GitHub Pages cuando subes cambios a `main`. En los despliegues, Astro ajusta las rutas para el subdirectorio del repositorio; localmente, el sitio conserva las rutas normales.
+El flujo `.github/workflows/deploy-pages.yml` compila Astro y publica `dist/` en GitHub Pages cuando subes cambios a `main`. El sitio usa la raíz del dominio como base, por lo que las imágenes se sirven desde `/images/` y las páginas desde `/entrevistas/`.
 
-1. En GitHub, abre **Settings → Pages** del repositorio `mrwake/a-contraluz`.
+1. En GitHub, abre **Settings → Pages** del repositorio.
 2. En **Build and deployment**, selecciona **GitHub Actions** como fuente.
 3. En **Settings → Actions → General**, permite las acciones necesarias para compilar y publicar Pages.
 4. Sube un cambio a `main` o ejecuta manualmente **Actions → Deploy Astro to GitHub Pages → Run workflow**.
-5. Espera a que la acción termine correctamente. La dirección del sitio será `https://mrwake.github.io/a-contraluz/`.
+5. Espera a que la acción termine correctamente. Con un dominio propio conectado en **Settings → Pages**, el sitio y sus imágenes se sirven desde la raíz de ese dominio. La URL automática de GitHub Pages para un repositorio de proyecto incluye `/<repositorio>/` y requiere configurar `base` con esa ruta si no se usa el dominio propio.
 
 GitHub Pages tiene límites de uso y, con GitHub Free, el repositorio de publicación debe ser público. Consulta las [condiciones y límites oficiales](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits). Un dominio propio se puede conectar más adelante desde **Settings → Pages**.
 
