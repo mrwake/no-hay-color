@@ -1,6 +1,6 @@
-# A contraluz
+# No hay color
 
-Un blog de entrevistas estático hecho con Astro. Las entrevistas y sus metadatos viven en archivos Markdown; no hay base de datos, CMS ni servidor que mantener. El diseño convierte las imágenes a blanco y negro en el navegador y usa un fondo oscuro de inspiración editorial. Los retratos de muestra son ilustraciones SVG originales, no fotografías de personas reales.
+No hay color es un blog de entrevistas estático hecho con Astro. Las entrevistas y sus metadatos viven en archivos Markdown; no hay base de datos, CMS ni servidor que mantener. El diseño convierte las imágenes a blanco y negro en el navegador y usa un fondo oscuro de inspiración editorial. Los retratos de muestra son ilustraciones SVG originales, no fotografías de personas reales.
 
 ## Empezar en tu ordenador
 

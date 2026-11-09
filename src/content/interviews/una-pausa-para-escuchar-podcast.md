@@ -21,4 +21,4 @@ draft: false
 
 ## Transcripción
 
-Hola, bienvenidas y bienvenidos a A contraluz. Hoy imaginamos un pequeño huerto compartido. Ana nos recuerda que cuidar una planta también es aprender a tener paciencia: sembrar, regar y esperar. Gracias por escuchar este fragmento de muestra.
+Hola, bienvenidas y bienvenidos a No hay color. Hoy imaginamos un pequeño huerto compartido. Ana nos recuerda que cuidar una planta también es aprender a tener paciencia: sembrar, regar y esperar. Gracias por escuchar este fragmento de muestra.

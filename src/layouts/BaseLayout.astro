@@ -16,18 +16,18 @@ const base = import.meta.env.BASE_URL;
     <meta name="description" content={description} />
     <meta name="theme-color" content="#171715" />
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
-    <title>{title} — A contraluz</title>
+    <title>{title} — No hay color</title>
   </head>
   <body>
     <header class="site-header">
-      <a class="wordmark" href={base} aria-label="A contraluz, inicio">A CONTRALUZ</a>
-      <span class="header-note">Conversaciones para mirar despacio</span>
+      <a class="wordmark" href={base} aria-label="No hay color, inicio">NO HAY COLOR</a>
+      <span class="header-note">Entrevistas y retratos sin filtros</span>
     </header>
     <main>
       <slot />
     </main>
     <footer class="site-footer">
-      <a href={base}>A CONTRALUZ</a>
+      <a href={base}>NO HAY COLOR</a>
       <span>Hecho con calma, texto a texto.</span>
     </footer>
   </body>
