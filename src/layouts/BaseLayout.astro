@@ -17,11 +17,24 @@ const base = import.meta.env.BASE_URL;
     <meta name="theme-color" content="#171715" />
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
     <title>{title} — No hay color</title>
+    <script is:inline>
+      (() => {
+        const savedTheme = localStorage.getItem('theme');
+        const systemTheme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        document.documentElement.dataset.theme = savedTheme || systemTheme;
+      })();
+    </script>
   </head>
   <body>
     <header class="site-header">
       <a class="wordmark" href={base} aria-label="No hay color, inicio">NO HAY COLOR</a>
-      <span class="header-note">Entrevistas y retratos sin filtros</span>
+      <div class="header-actions">
+        <span class="header-note">Entrevistas y retratos sin filtros</span>
+        <div class="theme-selector" role="group" aria-label="Seleccionar tema">
+          <button class="theme-option" type="button" data-theme-choice="light" aria-pressed="false">Claro</button>
+          <button class="theme-option" type="button" data-theme-choice="dark" aria-pressed="false">Oscuro</button>
+        </div>
+      </div>
     </header>
     <main>
       <slot />
@@ -30,6 +43,34 @@ const base = import.meta.env.BASE_URL;
       <a href={base}>NO HAY COLOR</a>
       <span>Hecho con calma, texto a texto.</span>
     </footer>
+    <script>
+      const root = document.documentElement;
+      const themeOptions = document.querySelectorAll<HTMLButtonElement>('[data-theme-choice]');
+      const themeColor = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+
+      const updateThemeControls = () => {
+        const isLight = root.dataset.theme === 'light';
+        themeColor?.setAttribute('content', isLight ? '#f2efe7' : '#171715');
+        themeOptions.forEach((option) => {
+          option.setAttribute(
+            'aria-pressed',
+            String(option.dataset.themeChoice === root.dataset.theme),
+          );
+        });
+      };
+
+      updateThemeControls();
+
+      themeOptions.forEach((option) => {
+        option.addEventListener('click', () => {
+          const nextTheme = option.dataset.themeChoice;
+          if (nextTheme !== 'light' && nextTheme !== 'dark') return;
+          root.dataset.theme = nextTheme;
+          localStorage.setItem('theme', nextTheme);
+          updateThemeControls();
+        });
+      });
+    </script>
   </body>
 </html>
 
@@ -38,12 +79,27 @@ const base = import.meta.env.BASE_URL;
     color-scheme: dark;
     --paper: #171715;
     --ink: #f0eee8;
+    --body-text: #d0cdc6;
     --muted: #aaa69e;
     --line: #3b3934;
     --accent: #c5b69d;
+    --glow: rgb(133 120 99 / 18%);
+    --glow-secondary: rgb(95 91 81 / 11%);
     font-family: Georgia, "Times New Roman", serif;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
+  }
+
+  :root[data-theme='light'] {
+    color-scheme: light;
+    --paper: #f2efe7;
+    --ink: #272620;
+    --body-text: #514e46;
+    --muted: #746f64;
+    --line: #cec8ba;
+    --accent: #77684f;
+    --glow: rgb(119 104 79 / 10%);
+    --glow-secondary: rgb(126 120 105 / 8%);
   }
 
   * {
@@ -52,11 +108,12 @@ const base = import.meta.env.BASE_URL;
 
   html {
     background:
-      radial-gradient(ellipse 72% 34% at 50% 0%, rgb(133 120 99 / 18%), transparent 100%),
-      radial-gradient(ellipse 52% 32% at 100% 45%, rgb(95 91 81 / 11%), transparent 100%),
+      radial-gradient(ellipse 72% 34% at 50% 0%, var(--glow), transparent 100%),
+      radial-gradient(ellipse 52% 32% at 100% 45%, var(--glow-secondary), transparent 100%),
       var(--paper);
     background-attachment: fixed;
     color: var(--ink);
+    transition: background-color 180ms ease, color 180ms ease;
   }
 
   body {
@@ -67,6 +124,10 @@ const base = import.meta.env.BASE_URL;
 
   a {
     color: inherit;
+  }
+
+  button {
+    font: inherit;
   }
 
   .site-header,
@@ -94,6 +155,43 @@ const base = import.meta.env.BASE_URL;
     font-size: 0.82rem;
   }
 
+  .header-actions {
+    align-items: center;
+    display: flex;
+    gap: 1.25rem;
+  }
+
+  .theme-selector {
+    align-items: center;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    display: inline-flex;
+    padding: 0.18rem;
+  }
+
+  .theme-option {
+    background: transparent;
+    border: 0;
+    border-radius: 999px;
+    color: var(--muted);
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    font-size: 0.68rem;
+    line-height: 1;
+    padding: 0.48rem 0.58rem;
+  }
+
+  .theme-option[aria-pressed='true'] {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .theme-option:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
   main {
     min-height: 70vh;
   }
@@ -106,8 +204,11 @@ const base = import.meta.env.BASE_URL;
 
   @media (max-width: 560px) {
     .header-note {
-      max-width: 10rem;
-      text-align: right;
+      display: none;
+    }
+
+    .header-actions {
+      gap: 0;
     }
 
     .site-footer {
