@@ -2,7 +2,7 @@ name: Deploy Astro to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, test-estilos]
   workflow_dispatch:
 
 permissions:
@@ -18,8 +18,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
+      - name: Check out main site
         uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Check out style preview
+        uses: actions/checkout@v4
+        with:
+          ref: test-estilos
+          path: preview-source
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -31,6 +38,22 @@ jobs:
         run: npm run check
       - name: Build site
         run: npm run build
+      - name: Install preview dependencies
+        run: npm ci
+        working-directory: preview-source
+      - name: Check preview project
+        run: npm run check
+        working-directory: preview-source
+      - name: Build style preview
+        run: npm run build
+        working-directory: preview-source
+        env:
+          ASTRO_BASE: /test-estilos/
+          ASTRO_OUT_DIR: ./dist-preview
+      - name: Add preview under its own path
+        run: |
+          mkdir -p dist/test-estilos
+          cp -R preview-source/dist-preview/. dist/test-estilos/
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
