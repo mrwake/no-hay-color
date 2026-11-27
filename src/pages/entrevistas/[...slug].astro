@@ -49,10 +49,14 @@ const base = import.meta.env.BASE_URL;
     text-decoration: none;
   }
 
+  .back-link:hover {
+    color: var(--ink);
+  }
+
   .article-header {
     margin: 0 auto;
-    max-width: 700px;
-    padding: clamp(3rem, 8vw, 7rem) 0 2rem;
+    max-width: 760px;
+    padding: clamp(3.5rem, 9vw, 8rem) 0 2.5rem;
     text-align: center;
   }
 
@@ -79,11 +83,14 @@ const base = import.meta.env.BASE_URL;
   }
 
   .portrait {
-    margin: 1rem 0 4rem;
+    background: var(--panel);
+    margin: 1rem 0 clamp(3rem, 7vw, 5.5rem);
+    padding: clamp(0.75rem, 2.5vw, 2rem);
   }
 
   .portrait img {
     aspect-ratio: 1.8;
+    display: block;
     filter: grayscale(1);
     object-fit: cover;
     width: 100%;
@@ -101,17 +108,19 @@ const base = import.meta.env.BASE_URL;
   }
 
   .prose {
-    font-size: 1.12rem;
-    line-height: 1.85;
+    font-size: clamp(1.05rem, 1.25vw, 1.18rem);
+    line-height: 1.9;
     margin: 0 auto;
     max-width: 650px;
   }
 
   .prose :global(h2) {
-    font-size: 1.55rem;
+    border-top: 1px solid var(--line);
+    font-size: 1.65rem;
     font-weight: 400;
     line-height: 1.35;
-    margin: 3rem 0 0.8rem;
+    margin: 3.5rem 0 1rem;
+    padding-top: 1.25rem;
   }
 
   .prose :global(p) {
@@ -155,10 +164,11 @@ const base = import.meta.env.BASE_URL;
 
   .prose :global(blockquote) {
     border-left: 2px solid var(--accent);
+    background: color-mix(in srgb, var(--panel) 70%, transparent);
     color: var(--accent);
-    font-size: 0.9rem;
+    font-size: 1rem;
     margin: 0 0 2.5rem;
-    padding-left: 1rem;
+    padding: 1rem 1.25rem;
   }
 
   .prose :global(blockquote p) {

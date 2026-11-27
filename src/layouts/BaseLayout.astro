@@ -14,7 +14,7 @@ const base = import.meta.env.BASE_URL;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#171715" />
+    <meta name="theme-color" content="#f1ede4" />
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
     <title>{title} — No hay color</title>
     <script is:inline>
@@ -50,7 +50,7 @@ const base = import.meta.env.BASE_URL;
 
       const updateThemeControls = () => {
         const isLight = root.dataset.theme === 'light';
-        themeColor?.setAttribute('content', isLight ? '#f2efe7' : '#171715');
+        themeColor?.setAttribute('content', isLight ? '#f1ede4' : '#1d1c19');
         themeOptions.forEach((option) => {
           option.setAttribute(
             'aria-pressed',
@@ -76,30 +76,32 @@ const base = import.meta.env.BASE_URL;
 
 <style is:global>
   :root {
-    color-scheme: dark;
-    --paper: #171715;
-    --ink: #f0eee8;
-    --body-text: #d0cdc6;
-    --muted: #aaa69e;
-    --line: #3b3934;
-    --accent: #c5b69d;
-    --glow: rgb(133 120 99 / 18%);
-    --glow-secondary: rgb(95 91 81 / 11%);
+    color-scheme: light;
+    --paper: #f1ede4;
+    --panel: #e8e2d6;
+    --ink: #292721;
+    --body-text: #504d45;
+    --muted: #777166;
+    --line: #d1c9bb;
+    --accent: #8c7657;
+    --glow: rgb(163 143 111 / 16%);
+    --glow-secondary: rgb(126 120 105 / 8%);
     font-family: Georgia, "Times New Roman", serif;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
   }
 
-  :root[data-theme='light'] {
-    color-scheme: light;
-    --paper: #f2efe7;
-    --ink: #272620;
-    --body-text: #514e46;
-    --muted: #746f64;
-    --line: #cec8ba;
-    --accent: #77684f;
-    --glow: rgb(119 104 79 / 10%);
-    --glow-secondary: rgb(126 120 105 / 8%);
+  :root[data-theme='dark'] {
+    color-scheme: dark;
+    --paper: #1d1c19;
+    --panel: #282620;
+    --ink: #f0ece4;
+    --body-text: #d0cbc1;
+    --muted: #aaa397;
+    --line: #403c34;
+    --accent: #c5ad89;
+    --glow: rgb(133 120 99 / 18%);
+    --glow-secondary: rgb(95 91 81 / 11%);
   }
 
   * {
@@ -137,7 +139,7 @@ const base = import.meta.env.BASE_URL;
     justify-content: space-between;
     gap: 1rem;
     border-bottom: 1px solid var(--line);
-    padding: 1.4rem 0;
+    padding: 1.25rem 0;
   }
 
   .wordmark,
@@ -163,7 +165,7 @@ const base = import.meta.env.BASE_URL;
 
   .theme-selector {
     align-items: center;
-    background: var(--paper);
+    background: color-mix(in srgb, var(--paper) 88%, var(--ink));
     border: 1px solid var(--line);
     border-radius: 999px;
     display: inline-flex;
@@ -192,6 +194,11 @@ const base = import.meta.env.BASE_URL;
     outline-offset: 2px;
   }
 
+  a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+
   main {
     min-height: 70vh;
   }
@@ -214,6 +221,15 @@ const base = import.meta.env.BASE_URL;
     .site-footer {
       align-items: flex-start;
       flex-direction: column;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
     }
   }
 </style>
